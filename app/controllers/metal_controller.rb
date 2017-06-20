@@ -1,13 +1,23 @@
-class MetalController < ActionController::Metal
-  # Include enough middleware to render jsonapi
-  include AbstractController::Rendering        # enables rendering
-  include ActionController::Renderers::All
-  include ActionController::ApiRendering
-  include ActionController::BasicImplicitRender
-  include ActionController::StrongParameters
-  include ActionController::MimeResponds
 
-  include AbstractController::Callbacks
+  require 'active_model_serializers/register_jsonapi_renderer'
+class MetalController < ActionController::Metal
+  include AbstractController::Rendering
+ # ActionController::API.without_modules(
+ #   :ForceSSL,
+ #   :UrlFor,
+ #   :DataStreaming,
+ #   :Instrumentation,
+ #   :ParamsWrapper,
+ #   :Rescue,
+ #   :'AbstractController::Callbacks',
+ #   :StrongParameters,
+ #   :ConditionalGet
+ # ).each do |left|
+ #   include left
+ # end
+
+  include(::ActionController::Serialization)
+  include ActiveModelSerializers::Jsonapi::ControllerSupport
 
 
   def test_endpoint

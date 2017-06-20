@@ -12,6 +12,9 @@ end
 
 gem 'goldiloader' if ENV['WITH_GOLDILOADER']
 
+#gem 'case_transform-rust-extensions', github: 'NullVoxPopuli/case_transform-rust-extensions', require: 'case_transform' if ENV['WITH_RUST_EXTENSIONS']
+
+
 # Search gem for easy accidental n+1
 gem 'ransack'
 # JSON API serializing gem for easy accidental n+1
