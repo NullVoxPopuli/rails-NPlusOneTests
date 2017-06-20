@@ -23,3 +23,6 @@ TODO:
  - jsonapi-rb instead of active_model_serializers
  - with and without case_transform-rust-extensions
    - only speeds up active_model_serializers when case transforming is used (serialize/deserialize)
+
+
+### Results

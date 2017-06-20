@@ -5,12 +5,12 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-# if ENV['WITH_OJ']
+if ENV['WITH_OJ']
   gem 'oj'
   gem 'oj_mimic_json'
-# end
+end
 
-gem 'goldiloader' #if ENV['WITH_GOLDILOADER']
+gem 'goldiloader' if ENV['WITH_GOLDILOADER']
 
 # Search gem for easy accidental n+1
 gem 'ransack'
