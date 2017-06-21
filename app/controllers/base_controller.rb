@@ -1,5 +1,6 @@
 
 require 'jsonapi/serializable'
+require 'jsonapi/rails/action_controller'
 
 class BaseController < ActionController::Base
   def test_endpoint
@@ -12,6 +13,6 @@ class BaseController < ActionController::Base
       User.first,
       include: params[:include],
       fields: params[:fields]
-    )
+    ).to_hash
   end
 end

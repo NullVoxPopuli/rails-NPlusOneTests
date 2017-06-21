@@ -77,11 +77,11 @@ Benchmark.ips do |x|
     sleep(10) # seconds
 
     x.report("#{scenario_title} -- ActionController::Base") { `#{base_request}` }
-    x.report("#{scenario_title} -- ActionController::API") { `#{api_request}` }
-    x.report("#{scenario_title} -- ActionController::Metal") { `#{metal_request}` }
+    #x.report("#{scenario_title} -- ActionController::API") { `#{api_request}` }
+    #x.report("#{scenario_title} -- ActionController::Metal") { `#{metal_request}` }
 
     x.report("jsonapi-rb #{scenario_title} -- ActionController::Base") { `#{jbase_request}` }
-    x.report("jsonapi-rb #{scenario_title} -- ActionController::API") { `#{japi_request}` }
+   # x.report("jsonapi-rb #{scenario_title} -- ActionController::API") { `#{japi_request}` }
    # x.report("jsonapi-rb #{scenario_title} -- ActionController::Metal") { `#{jmetal_request}` }
 
     x.compare!

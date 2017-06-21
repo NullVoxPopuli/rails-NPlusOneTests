@@ -83,6 +83,8 @@ GEM
     jsonapi-deserializable (0.1.1)
       jsonapi-parser (= 0.1.1)
     jsonapi-parser (0.1.1)
+    jsonapi-rails (0.1.2)
+      jsonapi-rb (~> 0.1)
     jsonapi-rb (0.1.2)
       jsonapi-deserializable (~> 0.1)
       jsonapi-serializable (~> 0.1)
@@ -205,6 +207,7 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
   goldiloader
   jbuilder (~> 2.5)
+  jsonapi-rails
   jsonapi-rb
   listen (>= 3.0.5, < 3.2)
   oj
