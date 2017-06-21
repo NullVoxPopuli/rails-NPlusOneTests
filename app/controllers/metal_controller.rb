@@ -1,5 +1,8 @@
 
-  require 'active_model_serializers/register_jsonapi_renderer'
+require 'jsonapi/serializable'
+
+require 'active_model_serializers/register_jsonapi_renderer'
+
 class MetalController < ActionController::Metal
   include AbstractController::Rendering
  # ActionController::API.without_modules(
@@ -22,5 +25,13 @@ class MetalController < ActionController::Metal
 
   def test_endpoint
     render jsonapi: User.first, include: params[:include], fields: params[:fields]
+  end
+
+  def jsonapi_rb
+    render json: JSONAPI::Serializable::Renderer.render(
+      User.first,
+      include: params[:include],
+      fields: params[:fields]
+    )
   end
 end

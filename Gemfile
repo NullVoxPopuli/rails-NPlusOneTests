@@ -19,6 +19,7 @@ gem 'goldiloader' if ENV['WITH_GOLDILOADER']
 gem 'ransack'
 # JSON API serializing gem for easy accidental n+1
 gem 'active_model_serializers'
+gem 'jsonapi-rb'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.1'
