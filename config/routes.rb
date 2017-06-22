@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
-  get '/base', to: 'base#test_endpoint'
-  get '/api', to: 'api#test_endpoint'
-  get '/metal', to: 'metal#test_endpoint'
+  get '/ams/base', to: 'ams/base#test_endpoint'
+  get '/ams/api', to: 'ams/api#test_endpoint'
+  get '/ams/metal', to: 'ams/metal#test_endpoint'
 
-  get '/jsonapi-base', to: 'base#jsonapi_rb'
-  get '/jsonapi-api', to: 'api#jsonapi_rb'
-  get '/jsonapi-metal', to: 'metal#jsonapi_rb'
+  get '/jsonapi/base', to: 'jsonapi_rb/base#test_endpoint'
+  get '/jsonapi/api', to: 'jsonapi_rb/api#test_endpoint'
+  get '/jsonapi/metal', to: 'jsonapi_rbmetal#test_endpoint'
 end

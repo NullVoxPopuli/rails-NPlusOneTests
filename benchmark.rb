@@ -66,22 +66,22 @@ Benchmark.ips do |x|
     pids << pid
 
     url = "localhost:#{port}"
-    base_request = "curl #{headers} --silent #{url}/base#{params} > /dev/null"
-    api_request = "curl #{headers} --silent #{url}/api#{params} > /dev/null"
-    metal_request = "curl #{headers} --silent #{url}/metal#{params} > /dev/null"
+    base_request = "curl #{headers} --silent #{url}/ams/base#{params} > /dev/null"
+    api_request = "curl #{headers} --silent #{url}/ams/api#{params} > /dev/null"
+    metal_request = "curl #{headers} --silent #{url}/ams/metal#{params} > /dev/null"
 
-    jbase_request = "curl #{headers} --silent #{url}/jsonapi-base#{params} > /dev/null"
-    japi_request = "curl #{headers} --silent #{url}/jsonapi-api#{params} > /dev/null"
-    jmetal_request = "curl #{headers} --silent #{url}/jsonapi-metal#{params} > /dev/null"
+    jbase_request = "curl #{headers} --silent #{url}/ams/base#{params} > /dev/null"
+    japi_request = "curl #{headers} --silent #{url}/ams/api#{params} > /dev/null"
+    jmetal_request = "curl #{headers} --silent #{url}/ams/metal#{params} > /dev/null"
 
     sleep(10) # seconds
 
-    x.report("#{scenario_title} -- ActionController::Base") { `#{base_request}` }
-    #x.report("#{scenario_title} -- ActionController::API") { `#{api_request}` }
-    #x.report("#{scenario_title} -- ActionController::Metal") { `#{metal_request}` }
+    #x.report("ams #{scenario_title} -- ActionController::Base") { `#{base_request}` }
+    x.report("ams #{scenario_title} -- ActionController::API") { `#{api_request}` }
+    #x.report("ams #{scenario_title} -- ActionController::Metal") { `#{metal_request}` }
 
-    x.report("jsonapi-rb #{scenario_title} -- ActionController::Base") { `#{jbase_request}` }
-   # x.report("jsonapi-rb #{scenario_title} -- ActionController::API") { `#{japi_request}` }
+    #x.report("jsonapi-rb #{scenario_title} -- ActionController::Base") { `#{jbase_request}` }
+   x.report("jsonapi-rb #{scenario_title} -- ActionController::API") { `#{japi_request}` }
    # x.report("jsonapi-rb #{scenario_title} -- ActionController::Metal") { `#{jmetal_request}` }
 
     x.compare!
