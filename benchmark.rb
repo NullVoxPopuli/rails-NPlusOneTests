@@ -1,6 +1,7 @@
 # https://github.com/evanphx/benchmark-ips
 require 'benchmark/ips'
 require 'awesome_print'
+require 'pry-byebug'
 
 env_vars = [ 'WITH_OJ',
               'WITH_GOLDILOADER'
@@ -48,10 +49,9 @@ params = '?include=posts.comments'
 
 pids = []
 Benchmark.ips do |x|
-  x.config(time: 15, warmup: 4)
+  x.config(time: 15, warmup: 4, stats: :bootstrap, confidence: 95)
 
   scenarios.each do |scenario|
-    ap scenario
     named_parts = scenario
       .map{|s| s.gsub('WITH_', '')}
       .select{|s| s.length > 0}
@@ -70,27 +70,41 @@ Benchmark.ips do |x|
     api_request = "curl #{headers} --silent #{url}/ams/api#{params} > /dev/null"
     metal_request = "curl #{headers} --silent #{url}/ams/metal#{params} > /dev/null"
 
+    e_base_request = "curl #{headers} --silent #{url}/ams/base/eager#{params} > /dev/null"
+    e_api_request = "curl #{headers} --silent #{url}/ams/api/eager#{params} > /dev/null"
+    e_metal_request = "curl #{headers} --silent #{url}/ams/metal/eager#{params} > /dev/null"
+
     jbase_request = "curl #{headers} --silent #{url}/ams/base#{params} > /dev/null"
     japi_request = "curl #{headers} --silent #{url}/ams/api#{params} > /dev/null"
     jmetal_request = "curl #{headers} --silent #{url}/ams/metal#{params} > /dev/null"
+
+    e_jbase_request = "curl #{headers} --silent #{url}/ams/base/eager#{params} > /dev/null"
+    e_japi_request = "curl #{headers} --silent #{url}/ams/api/eager#{params} > /dev/null"
+    e_jmetal_request = "curl #{headers} --silent #{url}/ams/metal/eager#{params} > /dev/null"
 
     sleep(10) # seconds
 
     GC.disable
 
-    x.report("ams        #{scenario_title} -- ActionController::Base ") { `#{base_request}` }
-    x.report("ams        #{scenario_title} -- ActionController::API  ") { `#{api_request}` }
-    x.report("ams        #{scenario_title} -- ActionController::Metal") { `#{metal_request}` }
+    #x.report("ams        #{scenario_title} -- ActionController::Base ") { `#{base_request}` }
+    x.report("ams              #{scenario_title} -- ActionController::API  ") { `#{api_request}` }
+    x.report("ams eager        #{scenario_title} -- ActionController::API  ") { `#{e_api_request}` }
+    x.report("ams              #{scenario_title} -- ActionController::Metal") { `#{metal_request}` }
+    x.report("ams eager        #{scenario_title} -- ActionController::Metal") { `#{e_metal_request}` }
 
-    x.report("jsonapi-rb #{scenario_title} -- ActionController::Base ") { `#{jbase_request}` }
-    x.report("jsonapi-rb #{scenario_title} -- ActionController::API  ") { `#{japi_request}` }
-    x.report("jsonapi-rb #{scenario_title} -- ActionController::Metal") { `#{jmetal_request}` }
+    #x.report("jsonapi-rb #{scenario_title} -- ActionController::Base ") { `#{jbase_request}` }
+    x.report("jsonapi-rb       #{scenario_title} -- ActionController::API  ") { `#{japi_request}` }
+    x.report("jsonapi-rb eager #{scenario_title} -- ActionController::API  ") { `#{e_japi_request}` }
+    x.report("jsonapi-rb       #{scenario_title} -- ActionController::Metal") { `#{jmetal_request}` }
+    x.report("jsonapi-rb eager #{scenario_title} -- ActionController::Metal") { `#{e_jmetal_request}` }
 
-    x.compare!
 
     GC.enable
     GC.start
   end
+
+
+  x.compare!
 end
 
 pids.each { |pid| Process.kill("HUP", pid) }

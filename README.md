@@ -29,6 +29,8 @@ TODO:
 #### 2017-06-23
 GC Off
 ```
+# 1 user, 100 posts, rand(1..4) comments per post
+
 jsonapi-rb                                -- ActionController::Metal:       91.4 i/s
 ams        GOLDILOADER                    -- ActionController::Metal:       90.8 i/s - same-ish: difference falls within error
 ams        OJ                             -- ActionController::Metal:       90.2 i/s - same-ish: difference falls within error
@@ -59,6 +61,7 @@ jsonapi-rb GOLDILOADER,OJ                 -- ActionController::API  :       83.2
 
 ```
 # 1 user, 100 posts, rand(1..4) comments per post
+
 GOLDILOADER,OJ     -- ActionController::Metal:       68.2 i/s
 GOLDILOADER        -- ActionController::Metal:       67.0 i/s - same-ish: difference falls within error
                    -- ActionController::Metal:       65.4 i/s - same-ish: difference falls within error
