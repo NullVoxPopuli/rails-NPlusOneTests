@@ -2,6 +2,12 @@
 require 'benchmark/ips'
 require 'awesome_print'
 require 'pry-byebug'
+require 'kalibera'
+
+$data_config = {
+  comments_per_post: 2,
+  posts: 100
+}
 
 env_vars = [ 'WITH_OJ',
               'WITH_GOLDILOADER'
@@ -15,10 +21,10 @@ scenarios.unshift([])
 
 
 def create_dummy_data!
-  comments = "rand(1..4).times { Comment.create(author: 'me', comment: 'nice blog', post_id: p.id)}"
+  comments = "#{$data_config[:comments_per_post]}.times { Comment.create(author: 'me', comment: 'nice blog', post_id: p.id)}"
   commands = [
     "u = User.create(first_name: 'Diana', last_name: 'Prince', birthday: 3000.years.ago)",
-    "100.times { p = Post.create(user_id: u.id, title: 'Some Post', body: 'awesome content'); #{comments}}"
+    "#{$data_config[:posts]}.times { p = Post.create(user_id: u.id, title: 'Some Post', body: 'awesome content'); #{comments}}"
   ]
   cmd = commands.join(';')
 
@@ -84,7 +90,7 @@ Benchmark.ips do |x|
 
     sleep(10) # seconds
 
-    GC.disable
+  #  GC.disable
 
     #x.report("ams        #{scenario_title} -- ActionController::Base ") { `#{base_request}` }
     x.report("ams              #{scenario_title} -- ActionController::API  ") { `#{api_request}` }
@@ -99,11 +105,11 @@ Benchmark.ips do |x|
     x.report("jsonapi-rb eager #{scenario_title} -- ActionController::Metal") { `#{e_jmetal_request}` }
 
 
-    GC.enable
-    GC.start
+   # GC.enable
+   # GC.start
   end
 
-
+  ap $data_config
   x.compare!
 end
 
