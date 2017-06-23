@@ -21,8 +21,12 @@ module Ams
     include ActiveModelSerializers::Jsonapi::ControllerSupport
 
     def test_endpoint
-      render jsonapi: User.first, include: params[:include], fields: params[:fields]
+      render json: ActiveModelSerializers::SerializableResource.new(
+        User.first,
+        include: params[:include],
+        fields: params[:fields],
+        adapter: :jsonapi
+      ).as_json
     end
-
   end
 end

@@ -3,6 +3,6 @@ class PostSerializer < ActiveModel::Serializer
              :title, :body,
              :created_at, :updated_at
 
-  belongs_to :user
-  has_many :comments
+  belongs_to :user, serializer: UserSerializer
+  has_many :comments, each_serializer: CommentSerializer
 end

@@ -1,6 +1,5 @@
 
 require 'jsonapi/serializable'
-require 'jsonapi/rails/action_controller'
 
 module JsonapiRb
   class MetalController < ActionController::Metal

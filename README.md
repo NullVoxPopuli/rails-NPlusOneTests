@@ -26,6 +26,34 @@ TODO:
 
 ### Results
 
+GC Off
+```
+jsonapi-rb                                -- ActionController::Metal:       91.4 i/s
+ams        GOLDILOADER                    -- ActionController::Metal:       90.8 i/s - same-ish: difference falls within error
+ams        OJ                             -- ActionController::Metal:       90.2 i/s - same-ish: difference falls within error
+jsonapi-rb GOLDILOADER                    -- ActionController::Metal:       90.0 i/s - same-ish: difference falls within error
+ams                                       -- ActionController::Metal:       89.5 i/s - same-ish: difference falls within error
+jsonapi-rb OJ                             -- ActionController::Metal:       89.2 i/s - same-ish: difference falls within error
+ams        GOLDILOADER,OJ                 -- ActionController::Metal:       89.2 i/s - same-ish: difference falls within error
+jsonapi-rb GOLDILOADER,OJ                 -- ActionController::Metal:       88.7 i/s - same-ish: difference falls within error
+ams                                       -- ActionController::Base :       86.1 i/s - same-ish: difference falls within error
+ams        GOLDILOADER                    -- ActionController::API  :       85.4 i/s - same-ish: difference falls within error
+jsonapi-rb GOLDILOADER                    -- ActionController::Base :       85.0 i/s - same-ish: difference falls within error
+jsonapi-rb                                -- ActionController::Base :       84.9 i/s - same-ish: difference falls within error
+jsonapi-rb OJ                             -- ActionController::Base :       84.8 i/s - same-ish: difference falls within error
+jsonapi-rb                                -- ActionController::API  :       84.7 i/s - same-ish: difference falls within error
+ams                                       -- ActionController::API  :       84.6 i/s - same-ish: difference falls within error
+ams        OJ                             -- ActionController::Base :       84.5 i/s - same-ish: difference falls within error
+jsonapi-rb OJ                             -- ActionController::API  :       84.3 i/s - 1.08x  slower
+ams        GOLDILOADER,OJ                 -- ActionController::API  :       84.2 i/s - 1.09x  slower
+ams        GOLDILOADER                    -- ActionController::Base :       84.1 i/s - 1.09x  slower
+ams        GOLDILOADER,OJ                 -- ActionController::Base :       84.1 i/s - 1.09x  slower
+jsonapi-rb GOLDILOADER                    -- ActionController::API  :       84.1 i/s - 1.09x  slower
+ams        OJ                             -- ActionController::API  :       84.1 i/s - 1.09x  slower
+jsonapi-rb GOLDILOADER,OJ                 -- ActionController::Base :       83.3 i/s - 1.10x  slower
+jsonapi-rb GOLDILOADER,OJ                 -- ActionController::API  :       83.2 i/s - 1.10x  slower
+```
+
 #### 2017-06-20
 
 ```

@@ -76,15 +76,20 @@ Benchmark.ips do |x|
 
     sleep(10) # seconds
 
-    #x.report("ams #{scenario_title} -- ActionController::Base") { `#{base_request}` }
-    x.report("ams #{scenario_title} -- ActionController::API") { `#{api_request}` }
-    #x.report("ams #{scenario_title} -- ActionController::Metal") { `#{metal_request}` }
+    GC.disable
 
-    #x.report("jsonapi-rb #{scenario_title} -- ActionController::Base") { `#{jbase_request}` }
-   x.report("jsonapi-rb #{scenario_title} -- ActionController::API") { `#{japi_request}` }
-   # x.report("jsonapi-rb #{scenario_title} -- ActionController::Metal") { `#{jmetal_request}` }
+    x.report("ams        #{scenario_title} -- ActionController::Base ") { `#{base_request}` }
+    x.report("ams        #{scenario_title} -- ActionController::API  ") { `#{api_request}` }
+    x.report("ams        #{scenario_title} -- ActionController::Metal") { `#{metal_request}` }
+
+    x.report("jsonapi-rb #{scenario_title} -- ActionController::Base ") { `#{jbase_request}` }
+    x.report("jsonapi-rb #{scenario_title} -- ActionController::API  ") { `#{japi_request}` }
+    x.report("jsonapi-rb #{scenario_title} -- ActionController::Metal") { `#{jmetal_request}` }
 
     x.compare!
+
+    GC.enable
+    GC.start
   end
 end
 
