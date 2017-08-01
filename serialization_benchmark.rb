@@ -2,6 +2,8 @@ require 'benchmark/ips'
 require 'awesome_print'
 require 'pry-byebug'
 require 'kalibera'
+require "benchmark-memory"
+
 
 
 
@@ -82,14 +84,18 @@ module BenchAMS
   end
 end
 
-Benchmark.ips do |x|
-  x.config(time: 15, warmup: 4, stats: :bootstrap, confidence: 95)
+[:ips, :memory].each do |bench|
+
+  Benchmark.send(bench) do |x|
+    # x.config(time: 15, warmup: 4, stats: :bootstrap, confidence: 95)
 
 
-  x.report('ams             ') { BenchAMS.test_render }
-  x.report('jsonapi-rb      ') { BenchJSONAPI.test_render }
-  x.report('ams        eager') { BenchAMS.test_manual_eagerload }
-  x.report('jsonapi-rb eager') { BenchJSONAPI.test_manual_eagerload }
+    x.report('ams             ') { BenchAMS.test_render }
+    x.report('jsonapi-rb      ') { BenchJSONAPI.test_render }
+    x.report('ams        eager') { BenchAMS.test_manual_eagerload }
+    x.report('jsonapi-rb eager') { BenchJSONAPI.test_manual_eagerload }
 
-  x.compare!
+    x.compare!
+  end
+
 end

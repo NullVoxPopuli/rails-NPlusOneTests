@@ -49,6 +49,8 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 gem 'benchmark-ips'
+gem "benchmark-memory"
+
 gem 'awesome_print'
 gem 'pry-byebug'
 gem 'kalibera'
