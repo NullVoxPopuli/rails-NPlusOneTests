@@ -10,9 +10,9 @@ if ENV['WITH_OJ']
   gem 'oj_mimic_json'
 end
 
-gem 'goldiloader' if ENV['WITH_GOLDILOADER']
+# gem 'goldiloader' if ENV['WITH_GOLDILOADER']
 
-#gem 'case_transform-rust-extensions', github: 'NullVoxPopuli/case_transform-rust-extensions', require: 'case_transform' if ENV['WITH_RUST_EXTENSIONS']
+# gem 'case_transform-rust-extensions', github: 'NullVoxPopuli/case_transform-rust-extensions', require: 'case_transform' if ENV['WITH_RUST_EXTENSIONS']
 
 
 # Search gem for easy accidental n+1
@@ -48,6 +48,10 @@ gem 'jbuilder', '~> 2.5'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+gem 'benchmark-ips'
+gem 'awesome_print'
+gem 'pry-byebug'
+gem 'kalibera'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

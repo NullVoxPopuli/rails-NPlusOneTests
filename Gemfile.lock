@@ -45,6 +45,8 @@ GEM
     addressable (2.5.1)
       public_suffix (~> 2.0, >= 2.0.2)
     arel (8.0.0)
+    awesome_print (1.8.0)
+    benchmark-ips (2.7.2)
     bindex (0.5.0)
     builder (3.2.3)
     byebug (9.0.6)
@@ -57,6 +59,7 @@ GEM
       xpath (~> 2.0)
     childprocess (0.7.0)
       ffi (~> 1.0, >= 1.0.11)
+    coderay (1.1.1)
     coffee-rails (4.2.2)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0)
@@ -71,9 +74,6 @@ GEM
     ffi (1.9.18)
     globalid (0.4.0)
       activesupport (>= 4.2.0)
-    goldiloader (2.0.1)
-      activerecord (>= 4.2, < 5.2)
-      activesupport (>= 4.2, < 5.2)
     i18n (0.8.4)
     jbuilder (2.7.0)
       activesupport (>= 4.2.0)
@@ -92,6 +92,9 @@ GEM
     jsonapi-renderer (0.1.2)
     jsonapi-serializable (0.1.3)
       jsonapi-renderer (~> 0.1)
+    kalibera (0.1)
+      memoist (~> 0.11.0)
+      rbzip2 (~> 0.2.0)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -100,6 +103,7 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.6)
       mime-types (>= 1.16, < 4)
+    memoist (0.11.0)
     method_source (0.8.2)
     mime-types (3.1)
       mime-types-data (~> 3.2015)
@@ -114,6 +118,13 @@ GEM
     oj_mimic_json (1.0.1)
     polyamorous (1.3.1)
       activerecord (>= 3.0)
+    pry (0.10.4)
+      coderay (~> 1.1.0)
+      method_source (~> 0.8.1)
+      slop (~> 3.4)
+    pry-byebug (3.4.2)
+      byebug (~> 9.0)
+      pry (~> 0.10)
     public_suffix (2.0.5)
     puma (3.9.1)
     rack (2.0.3)
@@ -152,6 +163,7 @@ GEM
     rb-fsevent (0.9.8)
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
+    rbzip2 (0.2.0)
     rspec-core (3.6.0)
       rspec-support (~> 3.6.0)
     rspec-expectations (3.6.0)
@@ -181,6 +193,7 @@ GEM
     selenium-webdriver (3.4.3)
       childprocess (~> 0.5)
       rubyzip (~> 1.0)
+    slop (3.6.0)
     spring (2.0.2)
       activesupport (>= 4.2)
     spring-watcher-listen (2.0.1)
@@ -220,16 +233,19 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers
+  awesome_print
+  benchmark-ips
   byebug
   capybara (~> 2.13)
   coffee-rails (~> 4.2)
-  goldiloader
   jbuilder (~> 2.5)
   jsonapi-rails
   jsonapi-rb
+  kalibera
   listen (>= 3.0.5, < 3.2)
   oj
   oj_mimic_json
+  pry-byebug
   puma (~> 3.7)
   rails (~> 5.1.1)
   ransack
@@ -245,4 +261,4 @@ DEPENDENCIES
   web-console (>= 3.3.0)
 
 BUNDLED WITH
-   1.15.1
+   1.15.2

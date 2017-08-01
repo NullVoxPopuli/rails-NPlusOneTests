@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # https://github.com/evanphx/benchmark-ips
 require 'benchmark/ips'
 require 'awesome_print'
@@ -10,8 +12,8 @@ $data_config = {
 }
 
 env_vars = [ 'WITH_OJ',
-              'WITH_GOLDILOADER'
-             # 'WITH_RUST_EXTENSIONS'
+            #  'WITH_GOLDILOADER',
+          # 'WITH_RUST_EXTENSIONS'
 ]
 options = [''] + env_vars
 
@@ -52,6 +54,7 @@ create_dummy_data!
 headers = '-H "Accept: application/vnd.api+json" -H "Content-Type: application/vnd.api+json"'
 params = '?include=posts.comments'
 
+GC.disable
 
 pids = []
 Benchmark.ips do |x|
@@ -89,19 +92,18 @@ Benchmark.ips do |x|
     e_jmetal_request = "curl #{headers} --silent #{url}/ams/metal/eager#{params} > /dev/null"
 
     sleep(10) # seconds
-
-  #  GC.disable
+    # GC.disable
 
     #x.report("ams        #{scenario_title} -- ActionController::Base ") { `#{base_request}` }
-    x.report("ams              #{scenario_title} -- ActionController::API  ") { `#{api_request}` }
-    x.report("ams eager        #{scenario_title} -- ActionController::API  ") { `#{e_api_request}` }
-    x.report("ams              #{scenario_title} -- ActionController::Metal") { `#{metal_request}` }
+    # x.report("ams              #{scenario_title} -- ActionController::API  ") { `#{api_request}` }
+    # x.report("ams eager        #{scenario_title} -- ActionController::API  ") { `#{e_api_request}` }
+    # x.report("ams              #{scenario_title} -- ActionController::Metal") { `#{metal_request}` }
     x.report("ams eager        #{scenario_title} -- ActionController::Metal") { `#{e_metal_request}` }
 
     #x.report("jsonapi-rb #{scenario_title} -- ActionController::Base ") { `#{jbase_request}` }
-    x.report("jsonapi-rb       #{scenario_title} -- ActionController::API  ") { `#{japi_request}` }
-    x.report("jsonapi-rb eager #{scenario_title} -- ActionController::API  ") { `#{e_japi_request}` }
-    x.report("jsonapi-rb       #{scenario_title} -- ActionController::Metal") { `#{jmetal_request}` }
+    # x.report("jsonapi-rb       #{scenario_title} -- ActionController::API  ") { `#{japi_request}` }
+    # x.report("jsonapi-rb eager #{scenario_title} -- ActionController::API  ") { `#{e_japi_request}` }
+    # x.report("jsonapi-rb       #{scenario_title} -- ActionController::Metal") { `#{jmetal_request}` }
     x.report("jsonapi-rb eager #{scenario_title} -- ActionController::Metal") { `#{e_jmetal_request}` }
 
 
@@ -114,4 +116,3 @@ Benchmark.ips do |x|
 end
 
 pids.each { |pid| Process.kill("HUP", pid) }
-
