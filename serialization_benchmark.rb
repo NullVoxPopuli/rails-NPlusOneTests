@@ -40,12 +40,11 @@ module BenchJSONAPI
   end
 
   def render_data(data)
-    json = JSONAPI::Serializable::Renderer.render(
+    json = JSONAPI::Serializable::SuccessRenderer.new.render(
       data,
       include: 'posts.comments',
       # fields: params[:fields] || [],
       class: SerializableUser
-
     )
 
     json.to_json
