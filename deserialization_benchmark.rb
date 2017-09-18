@@ -23,7 +23,7 @@ json = {
       name: 'a post',
       text: 'some text',
       description: 'some description',
-      longer_text: %q{
+      longer_text: '
         longer text longer text longer text longer text longer text longer text
         longer text longer text longer text longer text longer text longer
         text longer text longer text longer text longer text longer text longer
@@ -33,7 +33,7 @@ json = {
         longer text longer text longer text longer text longer text longer text
         longer text longer text longer text longer text longer text longer text
         longer text longer text longer text longer text longer text longer text
-      },
+      ',
       bool_field: false,
       number_field: 0,
       null_field: nil,
@@ -43,25 +43,30 @@ json = {
     },
     relationships: {
       author: { data: { id: 1, type: 'users' } },
-      comments: [
-        { data: { id: 1, type: 'comments' } },
-        { data: { id: 2, type: 'comments' } },
-        { data: { id: 3, type: 'comments' } }
-      ]
+      comments: {
+        data: [
+          { id: 1, type: 'comments' },
+          { id: 2, type: 'comments' },
+          { id: 3, type: 'comments' }
+        ]
+      }
     }
   }
-}.with_indifferent_access
+}
+
+indifferent = json.with_indifferent_access
 
 ams_deserialize = lambda {
-  ActiveModelSerializers::Deserialization.jsonapi_parse(json)
+  ActiveModelSerializers::Adapter::JsonApi::Deserialization.parse(indifferent)
 }
 
 jsonapi_deserialize = lambda {
   # JSONAPI::Rails::DeserializableResource.call(json)
-  JSONAPI::Rails::Deserializable::Resource.call({ _jsonapi: json })
+  JSONAPI::Rails::Deserializable::Resource.call(indifferent)
 }
 
 ap json
+ap '----'
 ap ams_deserialize.call
 ap jsonapi_deserialize.call
 
