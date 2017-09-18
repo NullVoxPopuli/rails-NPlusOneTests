@@ -55,6 +55,7 @@ hash = {
 }
 
 indifferent = hash.with_indifferent_access
+data = indifferent['data']
 
 ams_deserialize = lambda {
   ActiveModelSerializers::Adapter::JsonApi::Deserialization.parse(indifferent)
@@ -62,13 +63,8 @@ ams_deserialize = lambda {
 
 jsonapi_deserialize = lambda {
   # JSONAPI::Rails::DeserializableResource.call(json)
-  JSONAPI::Rails::Deserializable::Resource.call(indifferent)
+  JSONAPI::Rails::Deserializable::Resource.call(data)
 }
-
-ap hash
-ap '----'
-ap ams_deserialize.call
-ap jsonapi_deserialize.call
 
 benchmarks.each do |bench|
   Benchmark.send(bench) do |x|
