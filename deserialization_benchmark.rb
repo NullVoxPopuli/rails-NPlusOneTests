@@ -15,7 +15,7 @@ require './config/environment'
 
 GC.disable
 
-json = {
+hash = {
   data: {
     id: 1,
     type: 'posts',
@@ -54,7 +54,7 @@ json = {
   }
 }
 
-indifferent = json.with_indifferent_access
+indifferent = hash.with_indifferent_access
 
 ams_deserialize = lambda {
   ActiveModelSerializers::Adapter::JsonApi::Deserialization.parse(indifferent)
@@ -65,7 +65,7 @@ jsonapi_deserialize = lambda {
   JSONAPI::Rails::Deserializable::Resource.call(indifferent)
 }
 
-ap json
+ap hash
 ap '----'
 ap ams_deserialize.call
 ap jsonapi_deserialize.call
