@@ -3,5 +3,5 @@ class SerializableComment < JSONAPI::Serializable::Resource
 
   attributes :author, :comment
 
-  belongs_to :post, class: SerializablePost
+  belongs_to :post
 end

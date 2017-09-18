@@ -20,8 +20,8 @@ def start_scenario(scenario)
   ActiveRecord::Base.remove_connection
 
   data_config = {
-    comments_per_post: 2,
-    posts: 100
+    comments_per_post: 20,
+    posts: 20
   }
 
   $env_vars.each { |v| ENV.delete(v) unless v.empty? }
@@ -87,12 +87,15 @@ module Bench
   end
 
   def render_with_jsonapi_rb(data)
-    JSONAPI::Serializable::SuccessRenderer.new.render(
+    JSONAPI::Serializable::Renderer.new.render(
       data,
       include: 'posts.comments',
-      # fields: params[:fields] || [],
-      class: SerializableUser
-    ).to_hash
+      class: {
+        User: SerializableUser,
+        Post: SerializablePost,
+        Comment: SerializableComment
+      }
+    )
   end
 end
 

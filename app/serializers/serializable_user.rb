@@ -5,5 +5,5 @@ class SerializableUser < JSONAPI::Serializable::Resource
   attributes :first_name, :last_name, :birthday,
              :created_at, :updated_at
 
-  has_many :posts, class: SerializablePost
+  has_many :posts
 end
