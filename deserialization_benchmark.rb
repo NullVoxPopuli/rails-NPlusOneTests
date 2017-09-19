@@ -108,6 +108,8 @@ custom = lambda {
   custom_parsing(data)
 }
 
+GC.disable
+
 # ap 'outputs'
 # ap 'ams'
 # ap ams_deserialize.call
