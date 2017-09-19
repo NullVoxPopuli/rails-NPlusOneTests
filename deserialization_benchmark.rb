@@ -8,18 +8,19 @@ require 'kalibera'
 require 'benchmark-memory'
 require 'rake'
 require 'rails'
+require 'jsonapi/deserializable'
+require 'jsonapi/serializable'
 require 'jsonapi/rails'
-# require 'jsonapi/rails/deserializable_resource'
+require 'active_model_serializers'
+# require 'jsonapi/rails/deserializable/resource'
 
 benchmarks = %i[ips memory]
 
 require './config/environment'
 
-GC.disable
-
 def custom_parsing(json)
   result = {}
-  result[:id] = json['id'] if json['id']
+  result['id'] = json['id'] if json['id']
 
   result.merge!(json['attributes'])
 
@@ -28,8 +29,8 @@ def custom_parsing(json)
     if data.is_a?(Array)
       result[relation_name] = data.map do |relationship|
         {
-          "#{relation_name.singularize}_id" => relationship[:id],
-          "#{relation_name.singularize}_type" => relationship[:type]
+          "#{relation_name.singularize}_id" => relationship['id'],
+          "#{relation_name.singularize}_type" => relationship['type']
         }
       end
     else
@@ -78,7 +79,8 @@ hash = {
       object_field: { custom: 'thing' }
     },
     relationships: {
-      author: { data: { id: 1, type: 'users' } },
+      # author: { data: { id: 1, type: 'users' } },
+      # user: { data: { id: 2, type: 'users' } },
       # comments: {
       #   data: [
       #     { id: 1, type: 'comments' },
@@ -106,13 +108,13 @@ custom = lambda {
   custom_parsing(data)
 }
 
-ap 'outputs'
-ap 'ams'
-ap ams_deserialize.call
-ap 'jsonapi'
-ap jsonapi_deserialize.call
-ap 'custom'
-ap custom.call
+# ap 'outputs'
+# ap 'ams'
+# ap ams_deserialize.call
+# ap 'jsonapi'
+# ap jsonapi_deserialize.call
+# ap 'custom'
+# ap custom.call
 
 benchmarks.each do |bench|
   Benchmark.send(bench) do |x|
